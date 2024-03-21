@@ -12,7 +12,7 @@
 >Jacoco report location - baseDir / module3 / target / site / jacoco-aggregate / index.html
 
 
-- Unit testing + jacoco reporting. 
+- Unit testing + jacoco reporting.
 _Note: Set a lower Coverage ratio in pom.xml_
 
 `$ mvn clean install`
@@ -25,11 +25,27 @@ _Note: Set a lower Coverage ratio in pom.xml_
 -Unit + Integration testing + jacoco merged reporting.
 
 `$ mvn clean install -P testAll`
-  
- _Note: You may add additional configuration for jacoco and control the behaviour. For additional configuration details visit [here.](https://www.eclemma.org/jacoco/trunk/doc/maven.html)_  
 
-# Result: 
-The below test coverage report shows coverage for `testAll` profile. 
+ _Note: You may add additional configuration for jacoco and control the behaviour. For additional configuration details visit [here.](https://www.eclemma.org/jacoco/trunk/doc/maven.html)_
+
+# Result:
+The below test coverage report shows coverage for `testAll` profile.
 The other important point to consider here is we have tried to increase the coverage of module1 method `concatenation` from module3 by running cucumber tests. Cucumber tests can easily be replaced by any other functional test frameworks like Karate API Testing Framework.
 
 ![Coverage Report All](merged-coverage-report-all.png)
+
+# SonarQube
+
+To use the merged JaCoCo report, SonarQube configuration has been added to the `pom.xml` file in *module1* and *module2*:
+
+```xml
+  <properties>
+    <sonar.coverage.jacoco.xmlReportPaths>../module3/target/site/jacoco-aggregate/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
+  </properties>
+```
+
+To scan the code, run something like the following:
+
+    mvn sonar:sonar -Dsonar.projectKey=jacoco-multi-module-sample -Dsonar.host.url=https://sonarqube-test.tools.nykredit.it -Dsonar.token=<token>
+
+Be aware that the scanner must be run using Java 17 whereas the project build uses Java 8.
