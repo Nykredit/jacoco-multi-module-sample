@@ -11,5 +11,7 @@
   <artifactId>module2</artifactId>
   <packaging>jar</packaging>
   <name>module2</name>
-
+  <properties>
+    <sonar.coverage.jacoco.xmlReportPaths>../module3/target/site/jacoco-aggregate/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
+  </properties>
 </project>
